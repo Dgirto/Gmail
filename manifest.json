@@ -1,0 +1,58 @@
+{
+  "id": "gmail",
+  "name": "Gmail",
+  "version": "1.0.0",
+  "description": "Lectura y envío de correos en Gmail (cuenta personal o Google Workspace) mediante OAuth2 con refresh token",
+  "category": "messaging",
+  "library": {
+    "package": "ruvic-gmail-connector",
+    "install": "pip install git+https://github.com/Dgirto/Gmail.git#subdirectory=lib",
+    "import_name": "ruvic_gmail_connector"
+  },
+  "auth_modes": [
+    {
+      "id": "oauth2_refresh_token",
+      "label": "OAuth2 (cuenta de Gmail o Google Workspace)",
+      "fields": [
+        {
+          "key": "client_id",
+          "label": "Client ID de OAuth",
+          "type": "text",
+          "required": true,
+          "placeholder": "1234567890-abc123.apps.googleusercontent.com",
+          "help_text": "ID del cliente OAuth (tipo 'Aplicación de escritorio') creado en Google Cloud Console"
+        },
+        {
+          "key": "client_secret",
+          "label": "Client Secret de OAuth",
+          "type": "password",
+          "secret": true,
+          "required": true,
+          "help_text": "Secreto del mismo cliente OAuth"
+        },
+        {
+          "key": "refresh_token",
+          "label": "Refresh token",
+          "type": "password",
+          "secret": true,
+          "required": true,
+          "help_text": "Obtenido una sola vez autorizando el acceso al buzón (ver guía de configuración)"
+        },
+        {
+          "key": "request_timeout",
+          "label": "Timeout de solicitud (segundos)",
+          "type": "number",
+          "required": false,
+          "default": "30"
+        }
+      ]
+    }
+  ],
+  "env_prefix": "RUVIC_GMAIL_",
+  "operations": ["mail.list", "mail.read", "mail.send", "mail.send_with_attachment"],
+  "test_connection": true,
+  "docs": {
+    "skill": "SKILL.md",
+    "permissions_note": "El refresh token se obtiene autorizando (una sola vez) los scopes https://www.googleapis.com/auth/gmail.readonly y https://www.googleapis.com/auth/gmail.send sobre el buzón a conectar. No se otorgan scopes de administración ni de modificación de configuración del buzón. Funciona con cuentas de Gmail personales y con Google Workspace."
+  }
+}
