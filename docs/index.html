@@ -1,412 +1,490 @@
 <!DOCTYPE html>
-<html lang="es" data-lang="es">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conector Gmail — Guía de configuración | Ruvic</title>
+  <title data-i18n="doc_title">Conector Gmail — Ruvic</title>
   <link rel="stylesheet" href="assets/ruvic.css">
 </head>
-<body>
+<body class="guide">
+  <main class="ruvic-container">
 
-<header class="ruvic-header">
-  <div class="ruvic-header-inner">
-    <p class="ruvic-wordmark">Ruvic</p>
+    <nav class="ruvic-toc" aria-label="Índice">
+      <h2 data-i18n="toc_title">Contenido</h2>
+      <ol>
+        <li><a href="#que-es" data-i18n="toc.que_es">¿Qué es y para qué sirve?</a></li>
+        <li><a href="#prerrequisitos" data-i18n="toc.prerrequisitos">Prerrequisitos</a></li>
+        <li><a href="#configuracion-fabricante" data-i18n="toc.configuracion_fabricante">Configuración en el fabricante</a></li>
+        <li><a href="#permisos" data-i18n="toc.permisos">Permisos requeridos</a></li>
+        <li><a href="#configuracion-ruvic" data-i18n="toc.configuracion_ruvic">Configuración en Ruvic</a></li>
+        <li><a href="#verificacion" data-i18n="toc.verificacion">Verificación</a></li>
+        <li><a href="#solucion-problemas" data-i18n="toc.solucion_problemas">Solución de problemas</a></li>
+        <li><a href="#faq-seguridad" data-i18n="toc.faq_seguridad">Preguntas frecuentes y notas de seguridad</a></li>
+      </ol>
+    </nav>
 
-    <h1>
-      <span class="lang-es">Conector Gmail — Guía de configuración</span>
-      <span class="lang-en">Gmail Connector — Setup Guide</span>
-    </h1>
-    <p class="subtitle">
-      <span class="lang-es">Conecta un buzón de Gmail (Google Workspace) a Ruvic Engine para que el agente lea, busque y envíe correos en tu nombre.</span>
-      <span class="lang-en">Connect a Gmail mailbox (Google Workspace) to Ruvic Engine so the agent can read, search and send email on your behalf.</span>
-    </p>
+    <h1 data-i18n="guide_title">Gmail</h1>
+    <p class="guide-updated">{{ULTIMA_ACTUALIZACION}}</p>
 
-    <div class="meta">
-      <span class="ruvic-badge">Gmail</span>
-      <span class="ruvic-badge">Google Workspace</span>
-      <span class="ruvic-badge">v1.0.0</span>
-    </div>
+    <!-- ============ 1. QUÉ ES ============ -->
+    <section>
+      <h2 id="que-es" data-i18n="section.que_es">¿Qué es y para qué sirve?</h2>
 
-    <div class="lang-switch" role="group" aria-label="Idioma / Language">
-      <button type="button" data-set-lang="es" class="active">ES</button>
-      <button type="button" data-set-lang="en">EN</button>
-    </div>
-  </div>
-</header>
-
-<main class="ruvic-container">
-
-  <!-- ============ ÍNDICE ============ -->
-  <nav class="ruvic-toc" aria-label="Índice">
-    <h2><span class="lang-es">Contenido</span><span class="lang-en">Contents</span></h2>
-    <ol>
-      <li><a href="#que-es"><span class="lang-es">¿Qué es y para qué sirve?</span><span class="lang-en">What is it and what is it for?</span></a></li>
-      <li><a href="#prerrequisitos"><span class="lang-es">Prerrequisitos</span><span class="lang-en">Prerequisites</span></a></li>
-      <li><a href="#fabricante"><span class="lang-es">Configuración en el fabricante (paso a paso)</span><span class="lang-en">Vendor-side setup (step by step)</span></a></li>
-      <li><a href="#permisos"><span class="lang-es">Permisos requeridos</span><span class="lang-en">Required permissions</span></a></li>
-      <li><a href="#ruvic"><span class="lang-es">Configuración en Ruvic</span><span class="lang-en">Setup in Ruvic</span></a></li>
-      <li><a href="#verificacion"><span class="lang-es">Verificación</span><span class="lang-en">Verification</span></a></li>
-      <li><a href="#problemas"><span class="lang-es">Solución de problemas</span><span class="lang-en">Troubleshooting</span></a></li>
-      <li><a href="#faq"><span class="lang-es">Preguntas frecuentes y notas de seguridad</span><span class="lang-en">FAQ and security notes</span></a></li>
-    </ol>
-  </nav>
-
-  <!-- ============ 1. QUÉ ES ============ -->
-  <section id="que-es">
-    <h2><span class="lang-es">1. ¿Qué es y para qué sirve?</span><span class="lang-en">1. What is it and what is it for?</span></h2>
-
-    <div class="lang-es">
-      <p>El conector Gmail permite que el agente de Ruvic lea, busque y envíe correos desde un buzón de <strong>Google Workspace</strong>, sin que nadie tenga que iniciar sesión manualmente ni volver a autorizar accesos. Una vez configurado, puedes pedirle al agente cosas como:</p>
+      <p data-i18n="que_es.intro">El conector Gmail permite que el agente de Ruvic lea, busque y envíe correos desde un buzón de Gmail (cuenta personal o <strong>Google Workspace</strong>), sin que nadie tenga que iniciar sesión manualmente ni volver a autorizar accesos. Una vez configurado, puedes pedirle al agente cosas como:</p>
       <ul>
-        <li>“Revisa si llegaron correos nuevos de soporte y resúmelos.”</li>
-        <li>“Busca los correos de la última semana que mencionen ‘factura pendiente’.”</li>
-        <li>“Envía un correo al cliente confirmando que el ticket fue resuelto, con el reporte adjunto.”</li>
+        <li data-i18n="que_es.li1">"Revisa si llegaron correos nuevos de soporte y resúmelos."</li>
+        <li data-i18n="que_es.li2">"Busca los correos de la última semana que mencionen 'factura pendiente'."</li>
+        <li data-i18n="que_es.li3">"Envía un correo al cliente confirmando que el ticket fue resuelto, con el reporte adjunto."</li>
       </ul>
-      <p>Operaciones soportadas:</p>
-    </div>
-    <div class="lang-en">
-      <p>The Gmail connector lets the Ruvic agent read, search and send email from a <strong>Google Workspace</strong> mailbox, without anyone having to sign in manually or re-authorize access. Once configured, you can ask the agent things like:</p>
+      <p data-i18n="que_es.ops_lead">Operaciones soportadas:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="table.operacion">Operación</th>
+            <th data-i18n="table.que_hace">Qué hace</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>mail.list</code></td>
+            <td data-i18n="op.list">Busca/lista correos usando filtros (sintaxis de búsqueda de Gmail)</td>
+          </tr>
+          <tr>
+            <td><code>mail.read</code></td>
+            <td data-i18n="op.read">Lee el detalle y el cuerpo de un correo</td>
+          </tr>
+          <tr>
+            <td><code>mail.send</code></td>
+            <td data-i18n="op.send">Envía un correo de texto</td>
+          </tr>
+          <tr>
+            <td><code>mail.send_with_attachment</code></td>
+            <td data-i18n="op.send_attach">Envía un correo con un archivo adjunto (máx. 20 MB)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-info">
+        <span class="callout-title" data-i18n="callout.login.title">Un solo login, no en cada ejecución</span>
+        <span data-i18n="callout.login.body">El conector usa <strong>OAuth2 con refresh token</strong>: el dueño del buzón autoriza el acceso <strong>una sola vez</strong> y ese permiso queda vigente. El agente nunca vuelve a mostrar una pantalla de "iniciar sesión con Google". Funciona tanto con cuentas de Gmail personales como con Google Workspace.</span>
+      </div>
+    </section>
+
+    <!-- ============ 2. PRERREQUISITOS ============ -->
+    <section>
+      <h2 id="prerrequisitos" data-i18n="section.prerrequisitos">Prerrequisitos</h2>
+
       <ul>
-        <li>“Check if new support emails arrived and summarize them.”</li>
-        <li>“Search last week's emails mentioning ‘pending invoice’.”</li>
-        <li>“Email the client confirming the ticket was resolved, with the report attached.”</li>
+        <li data-i18n="prereq.li1">Una cuenta de <strong>Gmail</strong> (personal @gmail.com o de <strong>Google Workspace</strong> — ambas funcionan igual con este conector) y acceso al buzón que se va a conectar, para iniciar sesión y autorizar el acceso.</li>
+        <li data-i18n="prereq.li2">Si usas el modo "Autorizar con Google" (recomendado): nada más, la plataforma ya tiene su propia app OAuth configurada.</li>
+        <li data-i18n="prereq.li3">Si usas "Usar credenciales propias" o pruebas locales: acceso al <strong>Google Cloud Console</strong> con permisos para crear un proyecto y credenciales OAuth.</li>
       </ul>
-      <p>Supported operations:</p>
-    </div>
+    </section>
 
-    <table>
-      <thead>
-        <tr>
-          <th><span class="lang-es">Operación</span><span class="lang-en">Operation</span></th>
-          <th><span class="lang-es">Qué hace</span><span class="lang-en">What it does</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>mail.list</code></td>
-          <td><span class="lang-es">Busca/lista correos usando filtros (sintaxis de búsqueda de Gmail)</span><span class="lang-en">Searches/lists emails using filters (Gmail search syntax)</span></td>
-        </tr>
-        <tr>
-          <td><code>mail.read</code></td>
-          <td><span class="lang-es">Lee el detalle y el cuerpo de un correo</span><span class="lang-en">Reads the detail and body of an email</span></td>
-        </tr>
-        <tr>
-          <td><code>mail.send</code></td>
-          <td><span class="lang-es">Envía un correo de texto</span><span class="lang-en">Sends a text email</span></td>
-        </tr>
-        <tr>
-          <td><code>mail.send_with_attachment</code></td>
-          <td><span class="lang-es">Envía un correo con un archivo adjunto (máx. 20 MB)</span><span class="lang-en">Sends an email with a file attachment (max 20 MB)</span></td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- ============ 3. CONFIGURACIÓN EN EL FABRICANTE ============ -->
+    <section>
+      <h2 id="configuracion-fabricante" data-i18n="section.configuracion_fabricante">Configuración en el fabricante</h2>
 
-    <div class="callout callout-info">
-      <span class="callout-title"><span class="lang-es">Un solo login, no en cada ejecución</span><span class="lang-en">One login, not on every run</span></span>
-      <span class="lang-es">El conector usa <strong>OAuth2 con refresh token</strong>: el dueño del buzón autoriza el acceso <strong>una sola vez</strong> (con un script local, fuera de Ruvic) y ese permiso queda vigente. El agente nunca vuelve a mostrar una pantalla de "iniciar sesión con Google". Funciona tanto con cuentas de Gmail personales como con Google Workspace.</span>
-      <span class="lang-en">The connector uses <strong>OAuth2 with a refresh token</strong>: the mailbox owner authorizes access <strong>once</strong> (with a local script, outside Ruvic) and that grant stays valid. The agent never shows a "sign in with Google" screen again. It works with both personal Gmail accounts and Google Workspace.</span>
-    </div>
-  </section>
+      <p data-i18n="fab.intro">Si usas el modo <strong>"Autorizar con Google"</strong> (recomendado), sáltate esta sección — la plataforma ya tiene una app OAuth propia, solo necesitas iniciar sesión y aceptar los permisos. Esta sección aplica si eliges "Usar credenciales propias" o quieres probar el conector localmente con <code>get_refresh_token.py</code>.</p>
 
-  <!-- ============ 2. PRERREQUISITOS ============ -->
-  <section id="prerrequisitos">
-    <h2><span class="lang-es">2. Prerrequisitos</span><span class="lang-en">2. Prerequisites</span></h2>
+      <ol class="ruvic-steps">
+        <li>
+          <strong data-i18n="step1.title">Crea (o selecciona) un proyecto en Google Cloud Console.</strong>
+          <p data-i18n="step1.body">Ve a <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">console.cloud.google.com/projectcreate</a> y crea un proyecto (o reutiliza uno existente).</p>
+        </li>
 
-    <div class="lang-es">
-      <ul>
-        <li>Una cuenta de <strong>Gmail</strong> (personal @gmail.com o de <strong>Google Workspace</strong> — ambas funcionan igual con este conector).</li>
-        <li>Acceso al <strong>Google Cloud Console</strong> con permisos para crear un proyecto y credenciales OAuth.</li>
-        <li><strong>Python 3.10+</strong> instalado localmente, solo para ejecutar una vez el script que obtiene el refresh token (no hace falta en el runtime de Ruvic, ya viene preinstalado ahí).</li>
-        <li>Acceso al buzón que se va a conectar, para iniciar sesión y autorizar el acceso.</li>
-      </ul>
-    </div>
-    <div class="lang-en">
-      <ul>
-        <li>A <strong>Gmail</strong> account (personal @gmail.com or <strong>Google Workspace</strong> — both work the same with this connector).</li>
-        <li>Access to <strong>Google Cloud Console</strong> with permissions to create a project and OAuth credentials.</li>
-        <li><strong>Python 3.10+</strong> installed locally, only to run the refresh-token script once (not needed in the Ruvic runtime, which already has it preinstalled).</li>
-        <li>Access to the mailbox being connected, to sign in and authorize access.</li>
-      </ul>
-    </div>
-  </section>
+        <li>
+          <strong data-i18n="step2.title">Habilita la Gmail API.</strong>
+          <p data-i18n="step2.body">En el menú <em>APIs y servicios → Biblioteca</em>, busca "Gmail API" y pulsa <em>Habilitar</em>.</p>
+        </li>
 
-  <!-- ============ 3. CONFIGURACIÓN EN EL FABRICANTE ============ -->
-  <section id="fabricante">
-    <h2><span class="lang-es">3. Configuración en el fabricante (paso a paso)</span><span class="lang-en">3. Vendor-side setup (step by step)</span></h2>
+        <li>
+          <strong data-i18n="step3.title">Configura la pantalla de consentimiento OAuth.</strong>
+          <p data-i18n="step3.body">En <em>APIs y servicios → Pantalla de consentimiento de OAuth</em>: tipo de usuario <strong>Externo</strong> (obligatorio si usas una cuenta @gmail.com personal), completa el nombre de la app y el correo de contacto, y en la sección de <strong>usuarios de prueba</strong> agrega el correo del buzón que vas a conectar. Mientras la app quede en estado <em>Testing</em>, esto evita el proceso de verificación de Google.</p>
+        </li>
 
-    <div class="lang-es">
-      <p>Vas a crear credenciales OAuth en Google Cloud y luego autorizar el acceso al buzón <strong>una sola vez</strong>, con un script que se ejecuta en tu computadora (no en Ruvic). El resultado es un <em>refresh token</em> que se pega en el formulario del conector.</p>
-    </div>
-    <div class="lang-en">
-      <p>You will create OAuth credentials in Google Cloud and then authorize access to the mailbox <strong>once</strong>, with a script that runs on your computer (not in Ruvic). The result is a <em>refresh token</em> that you paste into the connector form.</p>
-    </div>
+        <li>
+          <strong data-i18n="step4.title">Crea el cliente OAuth.</strong>
+          <p data-i18n="step4.body">En <em>APIs y servicios → Credenciales → Crear credenciales → ID de cliente de OAuth</em>:</p>
+          <ul>
+            <li data-i18n="step4.li1">Para "Usar credenciales propias" en Ruvic: tipo <strong>Aplicación web</strong>, con URI de redirección <code>{WEB_URL}/api/v1/connectors/oauth/callback</code>.</li>
+            <li data-i18n="step4.li2">Para pruebas locales con <code>get_refresh_token.py</code>: tipo <strong>Aplicación de escritorio</strong>.</li>
+          </ul>
+          <p data-i18n="step4.after">Anota el <strong>Client ID</strong> y el <strong>Client Secret</strong> generados (o descarga el JSON).</p>
+          <div class="screenshot-placeholder" data-i18n="ph.client">
+            [ Captura: pantalla de creación de cliente OAuth — reemplazar por assets/img/gmail-oauth-client.png ]
+          </div>
+        </li>
 
-    <ol class="ruvic-steps">
-      <li>
-        <div class="lang-es">
-          <strong>Crea (o selecciona) un proyecto en Google Cloud Console.</strong>
-          <p>Ve a <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">console.cloud.google.com/projectcreate</a> y crea un proyecto (o reutiliza uno existente).</p>
-        </div>
-        <div class="lang-en">
-          <strong>Create (or select) a project in Google Cloud Console.</strong>
-          <p>Go to <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">console.cloud.google.com/projectcreate</a> and create a project (or reuse an existing one).</p>
-        </div>
-      </li>
-
-      <li>
-        <div class="lang-es">
-          <strong>Habilita la Gmail API.</strong>
-          <p>En el menú <em>APIs y servicios → Biblioteca</em>, busca “Gmail API” y pulsa <em>Habilitar</em>.</p>
-        </div>
-        <div class="lang-en">
-          <strong>Enable the Gmail API.</strong>
-          <p>In <em>APIs & Services → Library</em>, search for “Gmail API” and click <em>Enable</em>.</p>
-        </div>
-      </li>
-
-      <li>
-        <div class="lang-es">
-          <strong>Configura la pantalla de consentimiento OAuth.</strong>
-          <p>En <em>APIs y servicios → Pantalla de consentimiento de OAuth</em>: tipo de usuario <strong>Externo</strong> (obligatorio si usas una cuenta @gmail.com personal), completa el nombre de la app y el correo de contacto, y en la sección de <strong>usuarios de prueba</strong> agrega el correo del buzón que vas a conectar. Mientras la app quede en estado <em>Testing</em>, esto evita el proceso de verificación de Google.</p>
-        </div>
-        <div class="lang-en">
-          <strong>Configure the OAuth consent screen.</strong>
-          <p>In <em>APIs & Services → OAuth consent screen</em>: user type <strong>External</strong> (required if using a personal @gmail.com account), fill in the app name and contact email, and under <strong>test users</strong> add the email of the mailbox you're connecting. While the app stays in <em>Testing</em> status, this skips Google's verification process.</p>
-        </div>
-      </li>
-
-      <li>
-        <div class="lang-es">
-          <strong>Crea el cliente OAuth (tipo "Aplicación de escritorio").</strong>
-          <p>En <em>APIs y servicios → Credenciales → Crear credenciales → ID de cliente de OAuth</em>. Tipo de aplicación: <strong>Aplicación de escritorio</strong>. Anota el <strong>Client ID</strong> y el <strong>Client Secret</strong> generados (o descarga el JSON).</p>
-        </div>
-        <div class="lang-en">
-          <strong>Create the OAuth client (type "Desktop app").</strong>
-          <p>In <em>APIs & Services → Credentials → Create credentials → OAuth client ID</em>. Application type: <strong>Desktop app</strong>. Note the generated <strong>Client ID</strong> and <strong>Client Secret</strong> (or download the JSON).</p>
-        </div>
-        <div class="screenshot-placeholder">
-          <span class="lang-es">[ Captura: pantalla de creación de cliente OAuth tipo "Aplicación de escritorio" — reemplazar por assets/img/gmail-oauth-client.png ]</span>
-          <span class="lang-en">[ Screenshot: OAuth client creation screen, "Desktop app" type — replace with assets/img/gmail-oauth-client.png ]</span>
-        </div>
-      </li>
-
-      <li>
-        <div class="lang-es">
-          <strong>Obtén el refresh token con el script incluido.</strong>
-          <p>Desde el paquete del conector, en tu computadora:</p>
+        <li>
+          <strong data-i18n="step5.title">(Solo pruebas locales) Obtén el refresh token con el script incluido.</strong>
+          <p data-i18n="step5.body">Desde el paquete del conector, en tu computadora:</p>
 <pre><code>pip install google-auth-oauthlib
 python get_refresh_token.py --client-id TU_CLIENT_ID --client-secret TU_CLIENT_SECRET</code></pre>
-          <p>Se abre el navegador: inicia sesión con el buzón que quieres conectar y acepta los permisos solicitados (leer y enviar correo). El script imprime <code>client_id</code>, <code>client_secret</code> y <code>refresh_token</code> — copia los tres.</p>
-        </div>
-        <div class="lang-en">
-          <strong>Get the refresh token with the included script.</strong>
-          <p>From the connector package, on your computer:</p>
-<pre><code>pip install google-auth-oauthlib
-python get_refresh_token.py --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET</code></pre>
-          <p>Your browser opens: sign in with the mailbox you want to connect and accept the requested permissions (read and send mail). The script prints <code>client_id</code>, <code>client_secret</code> and <code>refresh_token</code> — copy all three.</p>
-        </div>
-        <div class="screenshot-placeholder">
-          <span class="lang-es">[ Captura: pantalla de consentimiento de Google mostrando los permisos de Gmail solicitados — reemplazar por assets/img/gmail-consent-screen.png ]</span>
-          <span class="lang-en">[ Screenshot: Google consent screen showing the requested Gmail permissions — replace with assets/img/gmail-consent-screen.png ]</span>
-        </div>
-      </li>
-    </ol>
-  </section>
+          <p data-i18n="step5.after">Se abre el navegador: inicia sesión con el buzón que quieres conectar y acepta los permisos solicitados (leer y enviar correo). El script imprime <code>client_id</code>, <code>client_secret</code> y <code>refresh_token</code> — copia los tres.</p>
+          <div class="screenshot-placeholder" data-i18n="ph.consent">
+            [ Captura: pantalla de consentimiento de Google mostrando los permisos de Gmail solicitados — reemplazar por assets/img/gmail-consent-screen.png ]
+          </div>
+        </li>
+      </ol>
+    </section>
 
-  <!-- ============ 4. PERMISOS ============ -->
-  <section id="permisos">
-    <h2><span class="lang-es">4. Permisos requeridos</span><span class="lang-en">4. Required permissions</span></h2>
+    <!-- ============ 4. PERMISOS ============ -->
+    <section>
+      <h2 id="permisos" data-i18n="section.permisos">Permisos requeridos</h2>
 
-    <div class="lang-es">
-      <p>Principio de mínimo privilegio: el conector solo necesita estos dos scopes de Gmail durante la autorización (paso 5 de la sección 3). No agregues scopes de administración, de Drive ni de otras APIs de Workspace al script.</p>
-    </div>
-    <div class="lang-en">
-      <p>Least-privilege principle: the connector only needs these two Gmail scopes during authorization (step 5 of section 3). Do not add admin, Drive, or other Workspace API scopes to the script.</p>
-    </div>
+      <p data-i18n="permisos.intro">Principio de mínimo privilegio: el conector solo necesita estos dos scopes de Gmail. No agregues scopes de administración, de Drive ni de otras APIs de Workspace.</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th><span class="lang-es">Scope</span><span class="lang-en">Scope</span></th>
-          <th><span class="lang-es">Para qué lo usa el conector</span><span class="lang-en">Why the connector needs it</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>gmail.readonly</code></td>
-          <td><span class="lang-es">Buscar y listar correos (<code>mail.list</code>), leer el detalle de un correo (<code>mail.read</code>)</span><span class="lang-en">Search and list emails (<code>mail.list</code>), read an email's detail (<code>mail.read</code>)</span></td>
-        </tr>
-        <tr>
-          <td><code>gmail.send</code></td>
-          <td><span class="lang-es">Enviar correos (<code>mail.send</code>, <code>mail.send_with_attachment</code>)</span><span class="lang-en">Send emails (<code>mail.send</code>, <code>mail.send_with_attachment</code>)</span></td>
-        </tr>
-      </tbody>
-    </table>
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="table.scope">Scope</th>
+            <th data-i18n="table.scope_uso">Para qué lo usa el conector</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>gmail.readonly</code></td>
+            <td data-i18n="scope.readonly">Buscar y listar correos (<code>mail.list</code>), leer el detalle de un correo (<code>mail.read</code>)</td>
+          </tr>
+          <tr>
+            <td><code>gmail.send</code></td>
+            <td data-i18n="scope.send">Enviar correos (<code>mail.send</code>, <code>mail.send_with_attachment</code>)</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <div class="lang-es"><p>El conector <strong>no</strong> solicita <code>gmail.modify</code> ni <code>gmail.settings.*</code>: no puede eliminar correos, cambiar etiquetas ni modificar la configuración del buzón.</p></div>
-    <div class="lang-en"><p>The connector <strong>does not</strong> request <code>gmail.modify</code> or <code>gmail.settings.*</code>: it cannot delete emails, change labels, or modify mailbox settings.</p></div>
-  </section>
+      <p data-i18n="permisos.after">El conector <strong>no</strong> solicita <code>gmail.modify</code> ni <code>gmail.settings.*</code>: no puede eliminar correos, cambiar etiquetas ni modificar la configuración del buzón.</p>
+    </section>
 
-  <!-- ============ 5. CONFIGURACIÓN EN RUVIC ============ -->
-  <section id="ruvic">
-    <h2><span class="lang-es">5. Configuración en Ruvic</span><span class="lang-en">5. Setup in Ruvic</span></h2>
+    <!-- ============ 5. CONFIGURACIÓN EN RUVIC ============ -->
+    <section>
+      <h2 id="configuracion-ruvic" data-i18n="section.configuracion_ruvic">Configuración en Ruvic</h2>
 
-    <div class="lang-es">
-      <p>Entra a <strong>Settings → Conectores</strong>, busca la tarjeta <strong>Gmail</strong> y pulsa <strong>Configurar</strong>. Diligencia el formulario con los valores que obtuviste en la sección 3:</p>
-    </div>
-    <div class="lang-en">
-      <p>Go to <strong>Settings → Connectors</strong>, find the <strong>Gmail</strong> card and click <strong>Configure</strong>. Fill in the form with the values from section 3:</p>
-    </div>
+      <p data-i18n="ruvic.intro">Entra a <strong>Settings → Conectores</strong>, busca la tarjeta <strong>Gmail</strong> y pulsa <strong>Configurar</strong>. Elige uno de los 3 modos:</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th><span class="lang-es">Campo del formulario</span><span class="lang-en">Form field</span></th>
-          <th><span class="lang-es">Valor (obtenido en la sección 3)</span><span class="lang-en">Value (from section 3)</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="lang-es">Client ID de OAuth</span><span class="lang-en">OAuth Client ID</span></td>
-          <td><span class="lang-es">El Client ID obtenido en el paso 4</span><span class="lang-en">The Client ID obtained in step 4</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">Client Secret de OAuth</span><span class="lang-en">OAuth Client Secret</span></td>
-          <td><span class="lang-es">El Client Secret del mismo paso 4</span><span class="lang-en">The Client Secret from the same step 4</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">Refresh token</span><span class="lang-en">Refresh token</span></td>
-          <td><span class="lang-es">Impreso por <code>get_refresh_token.py</code> en el paso 5</span><span class="lang-en">Printed by <code>get_refresh_token.py</code> in step 5</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">Timeout de solicitud</span><span class="lang-en">Request timeout</span></td>
-          <td><span class="lang-es">Opcional; <code>30</code> segundos por defecto</span><span class="lang-en">Optional; defaults to <code>30</code> seconds</span></td>
-        </tr>
-      </tbody>
-    </table>
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="table.modo">Modo</th>
+            <th data-i18n="table.cuando">Cuándo usarlo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="modo1.label">Autorizar con Google <em>(recomendado)</em></td>
+            <td data-i18n="modo1.desc">El camino más simple: guarda y pulsa <strong>Autorizar</strong>, inicia sesión con el buzón a conectar y acepta los permisos. No requiere Google Cloud Console.</td>
+          </tr>
+          <tr>
+            <td data-i18n="modo2.label">Usar credenciales propias</td>
+            <td data-i18n="modo2.desc">Si tu equipo prefiere usar su propia app OAuth en vez de la de Ruvic. Pega el Client ID/Secret de la sección anterior y pulsa Autorizar.</td>
+          </tr>
+          <tr>
+            <td data-i18n="modo3.label">Refresh token manual</td>
+            <td data-i18n="modo3.desc">Para migraciones o pruebas locales: pega directamente un <code>refresh_token</code> ya generado con <code>get_refresh_token.py</code>.</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <div class="lang-es"><p>Guarda y pulsa <span class="ruvic-button">Probar conexión</span> — la plataforma se conectará a Gmail API con estas credenciales y confirmará que el refresh token es válido.</p></div>
-    <div class="lang-en"><p>Save and click <span class="ruvic-button">Test connection</span> — the platform will connect to Gmail API with these credentials and confirm the refresh token is valid.</p></div>
+      <p data-i18n="ruvic.probar">Guarda y pulsa <span class="ruvic-button">Probar conexión</span> — la plataforma se conectará a Gmail API con estas credenciales y confirmará que el refresh token es válido.</p>
 
-    <div class="screenshot-placeholder">
-      <span class="lang-es">[ Captura: formulario del conector Gmail en Settings → Conectores — reemplazar por assets/img/gmail-form.png ]</span>
-      <span class="lang-en">[ Screenshot: Gmail connector form in Settings → Connectors — replace with assets/img/gmail-form.png ]</span>
-    </div>
-  </section>
+      <div class="screenshot-placeholder" data-i18n="ph.form">
+        [ Captura: formulario del conector Gmail en Settings → Conectores — reemplazar por assets/img/gmail-form.png ]
+      </div>
+    </section>
 
-  <!-- ============ 6. VERIFICACIÓN ============ -->
-  <section id="verificacion">
-    <h2><span class="lang-es">6. Verificación</span><span class="lang-en">6. Verification</span></h2>
+    <!-- ============ 6. VERIFICACIÓN ============ -->
+    <section>
+      <h2 id="verificacion" data-i18n="section.verificacion">Verificación</h2>
 
-    <ol class="ruvic-steps">
-      <li>
-        <div class="lang-es"><strong>Test de conexión exitoso.</strong><p>El botón <em>Probar conexión</em> debe responder: <em>“Conexión exitosa al buzón soporte@tuempresa.com”</em>. La tarjeta del conector cambia a estado <strong>Configurado</strong>.</p></div>
-        <div class="lang-en"><strong>Successful connection test.</strong><p>The <em>Test connection</em> button should return: <em>“Successful connection to mailbox soporte@tuempresa.com”</em>. The connector card switches to <strong>Configured</strong>.</p></div>
-      </li>
-      <li>
-        <div class="lang-es"><strong>Automatización mínima de prueba.</strong><p>Abre una conversación nueva con el agente y pídele:</p><blockquote><em>“Busca en Gmail los correos no leídos de los últimos 3 días y resúmelos.”</em></blockquote><p>El agente debe responder con correos reales del buzón configurado. Si lo hace, el conector quedó operativo de punta a punta.</p></div>
-        <div class="lang-en"><strong>Minimal test automation.</strong><p>Open a new conversation with the agent and ask:</p><blockquote><em>“Search Gmail for unread emails from the last 3 days and summarize them.”</em></blockquote><p>The agent should reply with real emails from the configured mailbox. If it does, the connector is fully operational.</p></div>
-      </li>
-    </ol>
-  </section>
+      <ol class="ruvic-steps">
+        <li>
+          <strong data-i18n="verif1.title">Test de conexión exitoso.</strong>
+          <p data-i18n="verif1.body">El botón <em>Probar conexión</em> debe responder: <em>"Conexión exitosa al buzón soporte@tuempresa.com"</em>. La tarjeta del conector cambia a estado <strong>Configurado</strong>.</p>
+        </li>
+        <li>
+          <strong data-i18n="verif2.title">Automatización mínima de prueba.</strong>
+          <p data-i18n="verif2.body">Abre una conversación nueva con el agente y pídele:</p>
+          <blockquote data-i18n="verif2.quote"><em>"Busca en Gmail los correos no leídos de los últimos 3 días y resúmelos."</em></blockquote>
+          <p data-i18n="verif2.after">El agente debe responder con correos reales del buzón configurado. Si lo hace, el conector quedó operativo de punta a punta.</p>
+        </li>
+      </ol>
+    </section>
 
-  <!-- ============ 7. SOLUCIÓN DE PROBLEMAS ============ -->
-  <section id="problemas">
-    <h2><span class="lang-es">7. Solución de problemas</span><span class="lang-en">7. Troubleshooting</span></h2>
+    <!-- ============ 7. SOLUCIÓN DE PROBLEMAS ============ -->
+    <section>
+      <h2 id="solucion-problemas" data-i18n="section.solucion_problemas">Solución de problemas</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th><span class="lang-es">Mensaje / síntoma</span><span class="lang-en">Message / symptom</span></th>
-          <th><span class="lang-es">Causa probable y solución</span><span class="lang-en">Likely cause and fix</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="lang-es">“No se pudo autenticar: el refresh token puede estar revocado, vencido…”</span><span class="lang-en">“Could not authenticate: the refresh token may be revoked, expired…”</span></td>
-          <td><span class="lang-es">El refresh token fue revocado (el usuario quitó el acceso en su cuenta de Google), o la app OAuth sigue en estado <em>Testing</em> y pasaron más de 7 días sin usarlo. Vuelve a correr <code>get_refresh_token.py</code> para obtener uno nuevo.</span><span class="lang-en">The refresh token was revoked (the user removed access in their Google account), or the OAuth app is still in <em>Testing</em> status and more than 7 days passed without use. Re-run <code>get_refresh_token.py</code> to get a new one.</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">“invalid_client” o “unauthorized_client” al autorizar</span><span class="lang-en">“invalid_client” or “unauthorized_client” when authorizing</span></td>
-          <td><span class="lang-es">El client_id / client_secret no corresponden al mismo cliente OAuth con el que se generó el refresh token, o el buzón que inició sesión no está en la lista de usuarios de prueba (paso 3 de la sección 3) mientras la app está en <em>Testing</em>.</span><span class="lang-en">The client_id / client_secret don't match the same OAuth client used to generate the refresh token, or the mailbox that signed in isn't on the test users list (step 3 of section 3) while the app is in <em>Testing</em>.</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">Credenciales inválidas o sin permiso suficiente (HTTP 401/403)</span><span class="lang-en">Invalid credentials or insufficient permission (HTTP 401/403)</span></td>
-          <td><span class="lang-es">La Gmail API no está habilitada en el proyecto de Cloud, o los scopes concedidos durante la autorización no incluyen <code>gmail.readonly</code>/<code>gmail.send</code>.</span><span class="lang-en">The Gmail API is not enabled in the Cloud project, or the scopes granted during authorization don't include <code>gmail.readonly</code>/<code>gmail.send</code>.</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">“Gmail API no respondió correctamente (HTTP 429)”</span><span class="lang-en">“Gmail API did not respond correctly (HTTP 429)”</span></td>
-          <td><span class="lang-es">Límite de cuota temporal de la API. Es transitorio; el agente puede reintentar en unos segundos.</span><span class="lang-en">Temporary API quota limit. This is transient; the agent can retry in a few seconds.</span></td>
-        </tr>
-        <tr>
-          <td><span class="lang-es">El conector aparece “Sin configurar” tras guardar</span><span class="lang-en">Connector shows “Not configured” after saving</span></td>
-          <td><span class="lang-es">Algún campo obligatorio quedó vacío. Ábrelo de nuevo y completa client_id, client_secret y refresh_token.</span><span class="lang-en">A required field was left empty. Open it again and fill in client_id, client_secret and refresh_token.</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="table.sintoma">Mensaje / síntoma</th>
+            <th data-i18n="table.causa">Causa probable y solución</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="prob1.s">"No se pudo autenticar: el refresh token puede estar revocado, vencido…"</td>
+            <td data-i18n="prob1.f">El refresh token fue revocado (el usuario quitó el acceso en su cuenta de Google), o la app OAuth sigue en estado <em>Testing</em> y pasaron más de 7 días sin usarlo. Vuelve a autorizar el conector (o corre <code>get_refresh_token.py</code> de nuevo en pruebas locales).</td>
+          </tr>
+          <tr>
+            <td data-i18n="prob2.s">"invalid_client" o "unauthorized_client" al autorizar</td>
+            <td data-i18n="prob2.f">El client_id / client_secret no corresponden al mismo cliente OAuth con el que se generó el refresh token, o el buzón que inició sesión no está en la lista de usuarios de prueba (paso 3 de la sección anterior) mientras la app está en <em>Testing</em>.</td>
+          </tr>
+          <tr>
+            <td data-i18n="prob3.s">"La Gmail API no está habilitada en el proyecto de Google Cloud…"</td>
+            <td data-i18n="prob3.f">Falta habilitar la Gmail API en el proyecto de Cloud (paso 2 de la sección anterior, solo aplica si usas credenciales propias). El mensaje del conector incluye el enlace directo de activación; habilítala y espera 1-2 minutos.</td>
+          </tr>
+          <tr>
+            <td data-i18n="prob4.s">"Gmail API no respondió correctamente (HTTP 429)"</td>
+            <td data-i18n="prob4.f">Límite de cuota temporal de la API. Es transitorio; el agente puede reintentar en unos segundos.</td>
+          </tr>
+          <tr>
+            <td data-i18n="prob5.s">El conector aparece "Sin configurar" tras guardar</td>
+            <td data-i18n="prob5.f">Algún campo obligatorio quedó vacío, o no se completó el paso de Autorizar. Ábrelo de nuevo y completa el flujo.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-  <!-- ============ 8. FAQ Y SEGURIDAD ============ -->
-  <section id="faq">
-    <h2><span class="lang-es">8. Preguntas frecuentes y notas de seguridad</span><span class="lang-en">8. FAQ and security notes</span></h2>
+    <!-- ============ 8. FAQ Y SEGURIDAD ============ -->
+    <section>
+      <h2 id="faq-seguridad" data-i18n="section.faq_seguridad">Preguntas frecuentes y notas de seguridad</h2>
 
-    <h3><span class="lang-es">¿El agente puede leer o enviar correos desde cualquier buzón?</span><span class="lang-en">Can the agent read or send email from any mailbox?</span></h3>
-    <div class="lang-es"><p>No. Solo puede actuar como el buzón que autorizó el refresh token en el paso 5 de la sección 3. Para dar acceso a otro buzón, esa persona debe correr <code>get_refresh_token.py</code> con su propia sesión (y crear otra instancia del conector con ese token).</p></div>
-    <div class="lang-en"><p>No. It can only act as the mailbox that authorized the refresh token in step 5 of section 3. To grant access to another mailbox, that person must run <code>get_refresh_token.py</code> with their own session (and create another connector instance with that token).</p></div>
+      <h3 data-i18n="faq1.q">¿El agente puede leer o enviar correos desde cualquier buzón?</h3>
+      <p data-i18n="faq1.a">No. Solo puede actuar como el buzón que autorizó el acceso. Para dar acceso a otro buzón, esa persona debe autorizar con su propia sesión (y crear otra instancia del conector).</p>
 
-    <h3><span class="lang-es">¿El agente puede borrar correos o cambiar la configuración del buzón?</span><span class="lang-en">Can the agent delete emails or change mailbox settings?</span></h3>
-    <div class="lang-es"><p>No. El conector solo solicita los scopes <code>gmail.readonly</code> y <code>gmail.send</code>; Gmail rechaza cualquier operación fuera de esos alcances aunque el código lo intentara.</p></div>
-    <div class="lang-en"><p>No. The connector only requests the <code>gmail.readonly</code> and <code>gmail.send</code> scopes; Gmail rejects any operation outside those scopes even if the code attempted it.</p></div>
+      <h3 data-i18n="faq2.q">¿El agente puede borrar correos o cambiar la configuración del buzón?</h3>
+      <p data-i18n="faq2.a">No. El conector solo solicita los scopes <code>gmail.readonly</code> y <code>gmail.send</code>; Gmail rechaza cualquier operación fuera de esos alcances aunque el código lo intentara.</p>
 
-    <h3><span class="lang-es">¿Dónde queda guardado el refresh token?</span><span class="lang-en">Where is the refresh token stored?</span></h3>
-    <div class="lang-es"><p>Como secreto en el almacén de credenciales de la plataforma, asociado a tu usuario, igual que el client_secret. La interfaz nunca vuelve a mostrarlos; solo indica “definido”. Para cambiarlos, pega valores nuevos en el formulario; para conservarlos al editar otros campos, deja esos campos vacíos.</p></div>
-    <div class="lang-en"><p>As a secret in the platform's credential store, tied to your user, same as the client_secret. The UI never displays them again; it only shows “set”. To change them, paste new values into the form; to keep them while editing other fields, leave those fields empty.</p></div>
+      <h3 data-i18n="faq3.q">¿Dónde queda guardado el refresh token?</h3>
+      <p data-i18n="faq3.a">Como secreto en el almacén de credenciales de la plataforma, asociado a tu usuario, igual que el client_secret. La interfaz nunca vuelve a mostrarlos; solo indica "definido". Para cambiarlos, pega valores nuevos en el formulario; para conservarlos al editar otros campos, deja esos campos vacíos.</p>
 
-    <h3><span class="lang-es">¿Expira el refresh token?</span><span class="lang-en">Does the refresh token expire?</span></h3>
-    <div class="lang-es"><p>No, mientras la app OAuth de Google Cloud esté <strong>publicada</strong> ("In production") y el usuario no revoque el acceso manualmente. Si la app sigue en estado <em>Testing</em>, Google expira el refresh token a los 7 días sin uso — en ese caso hay que repetir el paso 5 de la sección 3.</p></div>
-    <div class="lang-en"><p>No, as long as the Google Cloud OAuth app is <strong>published</strong> ("In production") and the user doesn't manually revoke access. If the app is still in <em>Testing</em> status, Google expires the refresh token after 7 days without use — in that case, repeat step 5 of section 3.</p></div>
+      <h3 data-i18n="faq4.q">¿Expira el refresh token?</h3>
+      <p data-i18n="faq4.a">No, mientras la app OAuth esté <strong>publicada</strong> ("In production") y el usuario no revoque el acceso manualmente. En estado <em>Testing</em>, Google lo expira a los 7 días sin uso — no aplica al modo "Autorizar con Google" (usa la app publicada de la plataforma).</p>
 
-    <h3><span class="lang-es">¿Qué hago si el refresh token se compromete?</span><span class="lang-en">What if the refresh token is compromised?</span></h3>
-    <div class="lang-es"><ol><li>El dueño del buzón entra a <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> y revoca el acceso de la app conectada.</li><li>Corre de nuevo <code>get_refresh_token.py</code> para generar un token nuevo.</li><li>Actualízalo en el formulario del conector.</li></ol></div>
-    <div class="lang-en"><ol><li>The mailbox owner goes to <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> and revokes the connected app's access.</li><li>Run <code>get_refresh_token.py</code> again to generate a new token.</li><li>Update it in the connector form.</li></ol></div>
+      <h3 data-i18n="faq5.q">¿Qué hago si el refresh token se compromete?</h3>
+      <ol data-i18n="faq5.a">
+        <li>El dueño del buzón entra a <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> y revoca el acceso de la app conectada.</li>
+        <li>Vuelve a autorizar el conector en Settings → Conectores (o corre <code>get_refresh_token.py</code> de nuevo en pruebas locales).</li>
+        <li>Actualízalo en el formulario del conector.</li>
+      </ol>
 
-    <div class="callout callout-warning">
-      <span class="callout-title"><span class="lang-es">Buenas prácticas</span><span class="lang-en">Best practices</span></span>
-      <span class="lang-es">Usa un cliente OAuth dedicado solo a este conector; autoriza únicamente los dos scopes mínimos; nunca compartas el client_secret ni el refresh_token por canales no seguros (chat, correo, capturas de pantalla); y revisa periódicamente en <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> qué apps tienen acceso concedido al buzón.</span>
-      <span class="lang-en">Use an OAuth client dedicated only to this connector; authorize only the two minimum scopes; never share the client_secret or refresh_token over insecure channels (chat, email, screenshots); and periodically review at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> which apps have granted access to the mailbox.</span>
-    </div>
-  </section>
+      <div class="callout callout-warning">
+        <span class="callout-title" data-i18n="callout.practicas.title">Buenas prácticas</span>
+        <span data-i18n="callout.practicas.body">Usa un cliente OAuth dedicado solo a este conector; autoriza únicamente los dos scopes mínimos; nunca compartas el client_secret ni el refresh_token por canales no seguros (chat, correo, capturas de pantalla); y revisa periódicamente en <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> qué apps tienen acceso concedido al buzón.</span>
+      </div>
+    </section>
 
-</main>
-
-<footer class="ruvic-footer">
-  <div class="tagline">Opera, factura, escala — aunque tu equipo no esté</div>
-  <div>Ruvic Engine · @ruvic_ai</div>
-</footer>
-
-<script>
-  // Toggle de idioma ES/EN — parte de la plantilla, no modificar.
-  (function () {
-    var buttons = document.querySelectorAll("[data-set-lang]");
-    function setLang(lang) {
-      document.documentElement.setAttribute("data-lang", lang);
-      document.documentElement.setAttribute("lang", lang);
-      buttons.forEach(function (btn) {
-        btn.classList.toggle("active", btn.getAttribute("data-set-lang") === lang);
-      });
-      try { localStorage.setItem("ruvic-docs-lang", lang); } catch (e) {}
-    }
-    buttons.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        setLang(btn.getAttribute("data-set-lang"));
-      });
-    });
-    try {
-      var saved = localStorage.getItem("ruvic-docs-lang");
-      if (saved === "en" || saved === "es") setLang(saved);
-    } catch (e) {}
-  })();
-</script>
-
+  </main>
+  <script>
+    const I18N = {
+  "es": {
+    "doc_title": "Conector Gmail — Ruvic",
+    "toc_title": "Contenido",
+    "toc.que_es": "¿Qué es y para qué sirve?",
+    "toc.prerrequisitos": "Prerrequisitos",
+    "toc.configuracion_fabricante": "Configuración en el fabricante",
+    "toc.permisos": "Permisos requeridos",
+    "toc.configuracion_ruvic": "Configuración en Ruvic",
+    "toc.verificacion": "Verificación",
+    "toc.solucion_problemas": "Solución de problemas",
+    "toc.faq_seguridad": "Preguntas frecuentes y notas de seguridad",
+    "guide_title": "Gmail",
+    "section.que_es": "¿Qué es y para qué sirve?",
+    "que_es.intro": "El conector Gmail permite que el agente de Ruvic lea, busque y envíe correos desde un buzón de Gmail (cuenta personal o <strong>Google Workspace</strong>), sin que nadie tenga que iniciar sesión manualmente ni volver a autorizar accesos. Una vez configurado, puedes pedirle al agente cosas como:",
+    "que_es.li1": "\"Revisa si llegaron correos nuevos de soporte y resúmelos.\"",
+    "que_es.li2": "\"Busca los correos de la última semana que mencionen 'factura pendiente'.\"",
+    "que_es.li3": "\"Envía un correo al cliente confirmando que el ticket fue resuelto, con el reporte adjunto.\"",
+    "que_es.ops_lead": "Operaciones soportadas:",
+    "table.operacion": "Operación",
+    "table.que_hace": "Qué hace",
+    "op.list": "Busca/lista correos usando filtros (sintaxis de búsqueda de Gmail)",
+    "op.read": "Lee el detalle y el cuerpo de un correo",
+    "op.send": "Envía un correo de texto",
+    "op.send_attach": "Envía un correo con un archivo adjunto (máx. 20 MB)",
+    "callout.login.title": "Un solo login, no en cada ejecución",
+    "callout.login.body": "El conector usa <strong>OAuth2 con refresh token</strong>: el dueño del buzón autoriza el acceso <strong>una sola vez</strong> y ese permiso queda vigente. El agente nunca vuelve a mostrar una pantalla de \"iniciar sesión con Google\". Funciona tanto con cuentas de Gmail personales como con Google Workspace.",
+    "section.prerrequisitos": "Prerrequisitos",
+    "prereq.li1": "Una cuenta de <strong>Gmail</strong> (personal @gmail.com o de <strong>Google Workspace</strong> — ambas funcionan igual con este conector) y acceso al buzón que se va a conectar, para iniciar sesión y autorizar el acceso.",
+    "prereq.li2": "Si usas el modo \"Autorizar con Google\" (recomendado): nada más, la plataforma ya tiene su propia app OAuth configurada.",
+    "prereq.li3": "Si usas \"Usar credenciales propias\" o pruebas locales: acceso al <strong>Google Cloud Console</strong> con permisos para crear un proyecto y credenciales OAuth.",
+    "section.configuracion_fabricante": "Configuración en el fabricante",
+    "fab.intro": "Si usas el modo <strong>\"Autorizar con Google\"</strong> (recomendado), sáltate esta sección — la plataforma ya tiene una app OAuth propia, solo necesitas iniciar sesión y aceptar los permisos. Esta sección aplica si eliges \"Usar credenciales propias\" o quieres probar el conector localmente con <code>get_refresh_token.py</code>.",
+    "step1.title": "Crea (o selecciona) un proyecto en Google Cloud Console.",
+    "step1.body": "Ve a <a href=\"https://console.cloud.google.com/projectcreate\" target=\"_blank\" rel=\"noopener\">console.cloud.google.com/projectcreate</a> y crea un proyecto (o reutiliza uno existente).",
+    "step2.title": "Habilita la Gmail API.",
+    "step2.body": "En el menú <em>APIs y servicios → Biblioteca</em>, busca \"Gmail API\" y pulsa <em>Habilitar</em>.",
+    "step3.title": "Configura la pantalla de consentimiento OAuth.",
+    "step3.body": "En <em>APIs y servicios → Pantalla de consentimiento de OAuth</em>: tipo de usuario <strong>Externo</strong> (obligatorio si usas una cuenta @gmail.com personal), completa el nombre de la app y el correo de contacto, y en la sección de <strong>usuarios de prueba</strong> agrega el correo del buzón que vas a conectar. Mientras la app quede en estado <em>Testing</em>, esto evita el proceso de verificación de Google.",
+    "step4.title": "Crea el cliente OAuth.",
+    "step4.body": "En <em>APIs y servicios → Credenciales → Crear credenciales → ID de cliente de OAuth</em>:",
+    "step4.li1": "Para \"Usar credenciales propias\" en Ruvic: tipo <strong>Aplicación web</strong>, con URI de redirección <code>{WEB_URL}/api/v1/connectors/oauth/callback</code>.",
+    "step4.li2": "Para pruebas locales con <code>get_refresh_token.py</code>: tipo <strong>Aplicación de escritorio</strong>.",
+    "step4.after": "Anota el <strong>Client ID</strong> y el <strong>Client Secret</strong> generados (o descarga el JSON).",
+    "ph.client": "[ Captura: pantalla de creación de cliente OAuth — reemplazar por assets/img/gmail-oauth-client.png ]",
+    "step5.title": "(Solo pruebas locales) Obtén el refresh token con el script incluido.",
+    "step5.body": "Desde el paquete del conector, en tu computadora:",
+    "step5.after": "Se abre el navegador: inicia sesión con el buzón que quieres conectar y acepta los permisos solicitados (leer y enviar correo). El script imprime <code>client_id</code>, <code>client_secret</code> y <code>refresh_token</code> — copia los tres.",
+    "ph.consent": "[ Captura: pantalla de consentimiento de Google mostrando los permisos de Gmail solicitados — reemplazar por assets/img/gmail-consent-screen.png ]",
+    "section.permisos": "Permisos requeridos",
+    "permisos.intro": "Principio de mínimo privilegio: el conector solo necesita estos dos scopes de Gmail. No agregues scopes de administración, de Drive ni de otras APIs de Workspace.",
+    "table.scope": "Scope",
+    "table.scope_uso": "Para qué lo usa el conector",
+    "scope.readonly": "Buscar y listar correos (<code>mail.list</code>), leer el detalle de un correo (<code>mail.read</code>)",
+    "scope.send": "Enviar correos (<code>mail.send</code>, <code>mail.send_with_attachment</code>)",
+    "permisos.after": "El conector <strong>no</strong> solicita <code>gmail.modify</code> ni <code>gmail.settings.*</code>: no puede eliminar correos, cambiar etiquetas ni modificar la configuración del buzón.",
+    "section.configuracion_ruvic": "Configuración en Ruvic",
+    "ruvic.intro": "Entra a <strong>Settings → Conectores</strong>, busca la tarjeta <strong>Gmail</strong> y pulsa <strong>Configurar</strong>. Elige uno de los 3 modos:",
+    "table.modo": "Modo",
+    "table.cuando": "Cuándo usarlo",
+    "modo1.label": "Autorizar con Google <em>(recomendado)</em>",
+    "modo1.desc": "El camino más simple: guarda y pulsa <strong>Autorizar</strong>, inicia sesión con el buzón a conectar y acepta los permisos. No requiere Google Cloud Console.",
+    "modo2.label": "Usar credenciales propias",
+    "modo2.desc": "Si tu equipo prefiere usar su propia app OAuth en vez de la de Ruvic. Pega el Client ID/Secret de la sección anterior y pulsa Autorizar.",
+    "modo3.label": "Refresh token manual",
+    "modo3.desc": "Para migraciones o pruebas locales: pega directamente un <code>refresh_token</code> ya generado con <code>get_refresh_token.py</code>.",
+    "ruvic.probar": "Guarda y pulsa <span class=\"ruvic-button\">Probar conexión</span> — la plataforma se conectará a Gmail API con estas credenciales y confirmará que el refresh token es válido.",
+    "ph.form": "[ Captura: formulario del conector Gmail en Settings → Conectores — reemplazar por assets/img/gmail-form.png ]",
+    "section.verificacion": "Verificación",
+    "verif1.title": "Test de conexión exitoso.",
+    "verif1.body": "El botón <em>Probar conexión</em> debe responder: <em>\"Conexión exitosa al buzón soporte@tuempresa.com\"</em>. La tarjeta del conector cambia a estado <strong>Configurado</strong>.",
+    "verif2.title": "Automatización mínima de prueba.",
+    "verif2.body": "Abre una conversación nueva con el agente y pídele:",
+    "verif2.quote": "<em>\"Busca en Gmail los correos no leídos de los últimos 3 días y resúmelos.\"</em>",
+    "verif2.after": "El agente debe responder con correos reales del buzón configurado. Si lo hace, el conector quedó operativo de punta a punta.",
+    "section.solucion_problemas": "Solución de problemas",
+    "table.sintoma": "Mensaje / síntoma",
+    "table.causa": "Causa probable y solución",
+    "prob1.s": "\"No se pudo autenticar: el refresh token puede estar revocado, vencido…\"",
+    "prob1.f": "El refresh token fue revocado (el usuario quitó el acceso en su cuenta de Google), o la app OAuth sigue en estado <em>Testing</em> y pasaron más de 7 días sin usarlo. Vuelve a autorizar el conector (o corre <code>get_refresh_token.py</code> de nuevo en pruebas locales).",
+    "prob2.s": "\"invalid_client\" o \"unauthorized_client\" al autorizar",
+    "prob2.f": "El client_id / client_secret no corresponden al mismo cliente OAuth con el que se generó el refresh token, o el buzón que inició sesión no está en la lista de usuarios de prueba (paso 3 de la sección anterior) mientras la app está en <em>Testing</em>.",
+    "prob3.s": "\"La Gmail API no está habilitada en el proyecto de Google Cloud…\"",
+    "prob3.f": "Falta habilitar la Gmail API en el proyecto de Cloud (paso 2 de la sección anterior, solo aplica si usas credenciales propias). El mensaje del conector incluye el enlace directo de activación; habilítala y espera 1-2 minutos.",
+    "prob4.s": "\"Gmail API no respondió correctamente (HTTP 429)\"",
+    "prob4.f": "Límite de cuota temporal de la API. Es transitorio; el agente puede reintentar en unos segundos.",
+    "prob5.s": "El conector aparece \"Sin configurar\" tras guardar",
+    "prob5.f": "Algún campo obligatorio quedó vacío, o no se completó el paso de Autorizar. Ábrelo de nuevo y completa el flujo.",
+    "section.faq_seguridad": "Preguntas frecuentes y notas de seguridad",
+    "faq1.q": "¿El agente puede leer o enviar correos desde cualquier buzón?",
+    "faq1.a": "No. Solo puede actuar como el buzón que autorizó el acceso. Para dar acceso a otro buzón, esa persona debe autorizar con su propia sesión (y crear otra instancia del conector).",
+    "faq2.q": "¿El agente puede borrar correos o cambiar la configuración del buzón?",
+    "faq2.a": "No. El conector solo solicita los scopes <code>gmail.readonly</code> y <code>gmail.send</code>; Gmail rechaza cualquier operación fuera de esos alcances aunque el código lo intentara.",
+    "faq3.q": "¿Dónde queda guardado el refresh token?",
+    "faq3.a": "Como secreto en el almacén de credenciales de la plataforma, asociado a tu usuario, igual que el client_secret. La interfaz nunca vuelve a mostrarlos; solo indica \"definido\". Para cambiarlos, pega valores nuevos en el formulario; para conservarlos al editar otros campos, deja esos campos vacíos.",
+    "faq4.q": "¿Expira el refresh token?",
+    "faq4.a": "No, mientras la app OAuth esté <strong>publicada</strong> (\"In production\") y el usuario no revoque el acceso manualmente. En estado <em>Testing</em>, Google lo expira a los 7 días sin uso — no aplica al modo \"Autorizar con Google\" (usa la app publicada de la plataforma).",
+    "faq5.q": "¿Qué hago si el refresh token se compromete?",
+    "faq5.a": "<li>El dueño del buzón entra a <a href=\"https://myaccount.google.com/permissions\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/permissions</a> y revoca el acceso de la app conectada.</li> <li>Vuelve a autorizar el conector en Settings → Conectores (o corre <code>get_refresh_token.py</code> de nuevo en pruebas locales).</li> <li>Actualízalo en el formulario del conector.</li>",
+    "callout.practicas.title": "Buenas prácticas",
+    "callout.practicas.body": "Usa un cliente OAuth dedicado solo a este conector; autoriza únicamente los dos scopes mínimos; nunca compartas el client_secret ni el refresh_token por canales no seguros (chat, correo, capturas de pantalla); y revisa periódicamente en <a href=\"https://myaccount.google.com/permissions\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/permissions</a> qué apps tienen acceso concedido al buzón."
+  },
+  "en": {
+    "doc_title": "Gmail Connector — Ruvic",
+    "toc_title": "Contents",
+    "toc.que_es": "What it is and what it’s for",
+    "toc.prerrequisitos": "Prerequisites",
+    "toc.configuracion_fabricante": "Vendor / provider setup",
+    "toc.permisos": "Required permissions",
+    "toc.configuracion_ruvic": "Configuration in Ruvic",
+    "toc.verificacion": "Verification",
+    "toc.solucion_problemas": "Troubleshooting",
+    "toc.faq_seguridad": "FAQ and security notes",
+    "guide_title": "Gmail",
+    "section.que_es": "What it is and what it’s for",
+    "que_es.intro": "The Gmail connector lets the Ruvic agent read, search and send email from a Gmail mailbox (personal account or <strong>Google Workspace</strong>), without anyone having to sign in manually or re-authorize access. Once configured, you can ask the agent things like:",
+    "que_es.li1": "\"Check if new support emails arrived and summarize them.\"",
+    "que_es.li2": "\"Search last week's emails mentioning 'pending invoice'.\"",
+    "que_es.li3": "\"Email the client confirming the ticket was resolved, with the report attached.\"",
+    "que_es.ops_lead": "Supported operations:",
+    "table.operacion": "Operation",
+    "table.que_hace": "What it does",
+    "op.list": "Searches/lists emails using filters (Gmail search syntax)",
+    "op.read": "Reads the detail and body of an email",
+    "op.send": "Sends a text email",
+    "op.send_attach": "Sends an email with a file attachment (max 20 MB)",
+    "callout.login.title": "One login, not on every run",
+    "callout.login.body": "The connector uses <strong>OAuth2 with a refresh token</strong>: the mailbox owner authorizes access <strong>once</strong> and that grant stays valid. The agent never shows a \"sign in with Google\" screen again. It works with both personal Gmail accounts and Google Workspace.",
+    "section.prerrequisitos": "Prerequisites",
+    "prereq.li1": "A <strong>Gmail</strong> account (personal @gmail.com or <strong>Google Workspace</strong> — both work the same with this connector) and access to the mailbox being connected, to sign in and authorize access.",
+    "prereq.li2": "If you use the \"Authorize with Google\" mode (recommended): nothing else, the platform already has its own OAuth app configured.",
+    "prereq.li3": "If you use \"Use your own credentials\" or local testing: access to the <strong>Google Cloud Console</strong> with permissions to create a project and OAuth credentials.",
+    "section.configuracion_fabricante": "Vendor / provider setup",
+    "fab.intro": "If you use the <strong>\"Authorize with Google\"</strong> mode (recommended), skip this section — the platform already has its own OAuth app, you just need to sign in and accept the permissions. This section applies if you choose \"Use your own credentials\" or want to test the connector locally with <code>get_refresh_token.py</code>.",
+    "step1.title": "Create (or select) a project in Google Cloud Console.",
+    "step1.body": "Go to <a href=\"https://console.cloud.google.com/projectcreate\" target=\"_blank\" rel=\"noopener\">console.cloud.google.com/projectcreate</a> and create a project (or reuse an existing one).",
+    "step2.title": "Enable the Gmail API.",
+    "step2.body": "In <em>APIs &amp; Services → Library</em>, search for \"Gmail API\" and click <em>Enable</em>.",
+    "step3.title": "Configure the OAuth consent screen.",
+    "step3.body": "In <em>APIs &amp; Services → OAuth consent screen</em>: user type <strong>External</strong> (required if using a personal @gmail.com account), fill in the app name and contact email, and under <strong>test users</strong> add the email of the mailbox you're connecting. While the app stays in <em>Testing</em> status, this skips Google's verification process.",
+    "step4.title": "Create the OAuth client.",
+    "step4.body": "In <em>APIs &amp; Services → Credentials → Create credentials → OAuth client ID</em>:",
+    "step4.li1": "For \"Use your own credentials\" in Ruvic: type <strong>Web application</strong>, with redirect URI <code>{WEB_URL}/api/v1/connectors/oauth/callback</code>.",
+    "step4.li2": "For local testing with <code>get_refresh_token.py</code>: type <strong>Desktop app</strong>.",
+    "step4.after": "Note the generated <strong>Client ID</strong> and <strong>Client Secret</strong> (or download the JSON).",
+    "ph.client": "[ Screenshot: OAuth client creation screen — replace with assets/img/gmail-oauth-client.png ]",
+    "step5.title": "(Local testing only) Get the refresh token with the included script.",
+    "step5.body": "From the connector package, on your computer:",
+    "step5.after": "Your browser opens: sign in with the mailbox you want to connect and accept the requested permissions (read and send mail). The script prints <code>client_id</code>, <code>client_secret</code> and <code>refresh_token</code> — copy all three.",
+    "ph.consent": "[ Screenshot: Google consent screen showing the requested Gmail permissions — replace with assets/img/gmail-consent-screen.png ]",
+    "section.permisos": "Required permissions",
+    "permisos.intro": "Least-privilege principle: the connector only needs these two Gmail scopes. Do not add admin, Drive, or other Workspace API scopes.",
+    "table.scope": "Scope",
+    "table.scope_uso": "Why the connector needs it",
+    "scope.readonly": "Search and list emails (<code>mail.list</code>), read an email's detail (<code>mail.read</code>)",
+    "scope.send": "Send emails (<code>mail.send</code>, <code>mail.send_with_attachment</code>)",
+    "permisos.after": "The connector does <strong>not</strong> request <code>gmail.modify</code> or <code>gmail.settings.*</code>: it cannot delete emails, change labels, or modify mailbox settings.",
+    "section.configuracion_ruvic": "Configuration in Ruvic",
+    "ruvic.intro": "Go to <strong>Settings → Connectors</strong>, find the <strong>Gmail</strong> card and click <strong>Configure</strong>. Choose one of the 3 modes:",
+    "table.modo": "Mode",
+    "table.cuando": "When to use it",
+    "modo1.label": "Authorize with Google <em>(recommended)</em>",
+    "modo1.desc": "The simplest path: save and click <strong>Authorize</strong>, sign in with the mailbox to connect and accept the permissions. Does not require Google Cloud Console.",
+    "modo2.label": "Use your own credentials",
+    "modo2.desc": "If your team prefers to use its own OAuth app instead of Ruvic's. Paste the Client ID/Secret from the previous section and click Authorize.",
+    "modo3.label": "Manual refresh token",
+    "modo3.desc": "For migrations or local testing: paste a <code>refresh_token</code> already generated with <code>get_refresh_token.py</code> directly.",
+    "ruvic.probar": "Save and click <span class=\"ruvic-button\">Test connection</span> — the platform will connect to the Gmail API with these credentials and confirm the refresh token is valid.",
+    "ph.form": "[ Screenshot: Gmail connector form in Settings → Connectors — replace with assets/img/gmail-form.png ]",
+    "section.verificacion": "Verification",
+    "verif1.title": "Successful connection test.",
+    "verif1.body": "The <em>Test connection</em> button should return: <em>\"Successful connection to mailbox soporte@tuempresa.com\"</em>. The connector card switches to <strong>Configured</strong>.",
+    "verif2.title": "Minimal test automation.",
+    "verif2.body": "Open a new conversation with the agent and ask:",
+    "verif2.quote": "<em>\"Search Gmail for unread emails from the last 3 days and summarize them.\"</em>",
+    "verif2.after": "The agent should reply with real emails from the configured mailbox. If it does, the connector is fully operational.",
+    "section.solucion_problemas": "Troubleshooting",
+    "table.sintoma": "Message / symptom",
+    "table.causa": "Likely cause and fix",
+    "prob1.s": "\"Could not authenticate: the refresh token may be revoked, expired…\"",
+    "prob1.f": "The refresh token was revoked (the user removed access in their Google account), or the OAuth app is still in <em>Testing</em> status and more than 7 days passed without use. Re-authorize the connector (or re-run <code>get_refresh_token.py</code> for local testing).",
+    "prob2.s": "\"invalid_client\" or \"unauthorized_client\" when authorizing",
+    "prob2.f": "The client_id / client_secret don't match the same OAuth client used to generate the refresh token, or the mailbox that signed in isn't on the test users list (step 3 of the previous section) while the app is in <em>Testing</em>.",
+    "prob3.s": "\"The Gmail API is not enabled in the Google Cloud project…\"",
+    "prob3.f": "The Gmail API isn't enabled in the Cloud project (step 2 of the previous section, only applies if you use your own credentials). The connector's message includes the direct activation link; enable it and wait 1-2 minutes.",
+    "prob4.s": "\"Gmail API did not respond correctly (HTTP 429)\"",
+    "prob4.f": "Temporary API quota limit. This is transient; the agent can retry in a few seconds.",
+    "prob5.s": "Connector shows \"Not configured\" after saving",
+    "prob5.f": "A required field was left empty, or the Authorize step wasn't completed. Open it again and complete the flow.",
+    "section.faq_seguridad": "FAQ and security notes",
+    "faq1.q": "Can the agent read or send email from any mailbox?",
+    "faq1.a": "No. It can only act as the mailbox that authorized access. To grant access to another mailbox, that person must authorize with their own session (and create another connector instance).",
+    "faq2.q": "Can the agent delete emails or change mailbox settings?",
+    "faq2.a": "No. The connector only requests the <code>gmail.readonly</code> and <code>gmail.send</code> scopes; Gmail rejects any operation outside those scopes even if the code attempted it.",
+    "faq3.q": "Where is the refresh token stored?",
+    "faq3.a": "As a secret in the platform's credential store, tied to your user, same as the client_secret. The UI never displays them again; it only shows \"set\". To change them, paste new values into the form; to keep them while editing other fields, leave those fields empty.",
+    "faq4.q": "Does the refresh token expire?",
+    "faq4.a": "No, as long as the OAuth app is <strong>published</strong> (\"In production\") and the user doesn't manually revoke access. In <em>Testing</em> status, Google expires it after 7 days without use — this doesn't apply to the \"Authorize with Google\" mode (it uses the platform's published app).",
+    "faq5.q": "What if the refresh token is compromised?",
+    "faq5.a": "<li>The mailbox owner goes to <a href=\"https://myaccount.google.com/permissions\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/permissions</a> and revokes the connected app's access.</li> <li>Re-authorize the connector in Settings → Connectors (or re-run <code>get_refresh_token.py</code> for local testing).</li> <li>Update it in the connector form.</li>",
+    "callout.practicas.title": "Best practices",
+    "callout.practicas.body": "Use an OAuth client dedicated only to this connector; authorize only the two minimum scopes; never share the client_secret or refresh_token over insecure channels (chat, email, screenshots); and periodically review at <a href=\"https://myaccount.google.com/permissions\" target=\"_blank\" rel=\"noopener\">myaccount.google.com/permissions</a> which apps have granted access to the mailbox."
+  }
+};
+    /* El portal aplica el idioma del usuario (localStorage ruvic-docs-lang)
+       y actualiza [data-i18n], [data-i18n-placeholder] y [data-i18n-alt]. */
+  </script>
 </body>
 </html>
