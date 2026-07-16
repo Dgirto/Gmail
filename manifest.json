@@ -1,10 +1,14 @@
 {
   "id": "gmail",
   "name": "Gmail",
+  "name_en": "Gmail",
   "version": "1.0.0",
   "description": "Lectura y envío de correos en Gmail (cuenta personal o Google Workspace) mediante OAuth2 con refresh token",
+  "description_en": "Read and send Gmail messages (personal account or Google Workspace) using OAuth2 with a refresh token",
   "icon": "icon.svg",
   "category": "messaging",
+  "category_en": "messaging",
+  "keywords": ["email", "correo", "correos", "gmail", "oauth", "oauth2", "google", "workspace"],
   "library": {
     "package": "ruvic-gmail-connector",
     "install": "pip install git+https://github.com/Dgirto/Gmail.git#subdirectory=lib",
